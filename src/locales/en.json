@@ -1,0 +1,8 @@
+{
+  "covid-message": "COVID-19 is primarily airborne. Aerosols that float and slowly fill\n          an indoor area are the way you are most likely to catch it.  Masks are your best personal\n          defense here. In 2022, You need BETTER MASKS than simple cloth masks.",
+  "table-info": "This table is about improvement in relative protection as you opt for\n          better mask combinations",
+  "rows-info": "Rows - masks the infectious person is wearing",
+  "column-info": "Columns - masks the person who could be infected is wearing",
+  "good-person": "Vulnerable person is wearing",
+  "infectious-person": "Infectious person is wearing"
+}

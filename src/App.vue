@@ -1,20 +1,18 @@
 <template>
-  <div id="app">
+  <div id="app" :dir="direction">
 
     <div class="container">
       <div class="row">
         <div class="col-sm-2"></div>
-        <div class="col-sm-8">COVID-19 is primarily airborne. Aerosols that float and slowly fill
-          an indoor area are the way you are most likely to catch it.  Masks are your best personal
-          defense here. In 2022, You need BETTER MASKS than simple cloth masks.</div>
-        <div class="col-sm-10">This table is about improvement in relative protection as you opt for
-          better mask combinations</div>
+        <div class="col-sm-8">{{ $t('covid-message') }}</div>
+        <div class="col-sm-10">{{ $t('table-info') }}</div>
           <div class="col-sm-2"></div>
-          <div class="col-sm-10">Rows - masks the infecitous person is wearing</div>
+          <div class="col-sm-10">{{ $t('rows-info') }}</div>
           <div class="col-sm-2"></div>
-          <div class="col-sm-10">Columns - masks the person who could be infected is wearing</div>
+          <div class="col-sm-10">{{ $t('column-info') }}</div>
       </div>
-      <div class="row">
+
+      <div class="row" dir="ltr">
         <div class="col-sm-2"></div>
         <div class="col-sm-3 form-check form-switch">
           <input
@@ -60,34 +58,45 @@
         </div>
       </div>
     </div>
-
-    <table class="table">
-      <thead>
-      <tr>
-        <th></th>
-        <th v-for="header in headers" :key="header">
-          {{ header }}
-        </th>
-      </tr>
-      </thead>
-      <tbody v-for="(header, index) in headers" :key="header">
-        <th scope="row" rowspan="4">{{ header }}</th>
+    <h1>{{ $t('good-person') }}</h1>
+    <div class="wrapper">
+      <div>
+        <h1>
+          {{ $t('infectious-person') }}
+        </h1>
+      </div>
+      <div class="table-responsive-sm">
+        <table class="table">
+        <thead>
         <tr>
-          <td
-            v-for="(head, headIndex) in headers"
-            :key="headIndex"
-            :class="`table-${index}-${headIndex}`"
-          >
-            <table>
-              <tr v-if="checkWild || jsonData[index].wild.x[head] === '1.0X'"
-                  class="wild">{{ jsonData[index].wild.x[head] }}</tr>
-              <tr v-if="checkDelta" class="delta">{{ jsonData[index].delta.x[head] }}</tr>
-              <tr v-if="checkOmicron" class="omicron">{{ jsonData[index].omicron.x[head] }}</tr>
-            </table>
-          </td>
+          <th></th>
+          <th v-for="header in headers" :key="header">
+            {{ $t(header) }}
+          </th>
         </tr>
-      </tbody>
-    </table>
+        </thead>
+        <tbody v-for="(header, index) in headers" :key="header">
+          <th scope="row" rowspan="4">{{ $t(header) }}</th>
+          <tr>
+            <td
+              v-for="(head, headIndex) in headers"
+              :key="headIndex"
+              :style="`background-color: #${jsonData[index].color[head]}`"
+            >
+              <table>
+                <tr v-if="checkWild || jsonData[index].wild.x[head] === '1.0X'"
+                    class="wild">{{ $t(jsonData[index].wild.x[head]) }}</tr>
+                <tr v-if="checkDelta" class="delta">{{ $t(jsonData[index].delta.x[head]) }}</tr>
+                <tr v-if="checkOmicron" class="omicron">
+                  {{ $t(jsonData[index].omicron.x[head]) }}
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -111,10 +120,28 @@ export default {
       checkDelta: true,
       checkOmicron: true,
       jsonData: [],
+      location: '',
+      windowWidth: 0,
     };
   },
   created() {
     this.jsonData = data;
+    this.location = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    if (this.location === 'ar') this.$i18n.locale = 'ar';
+  },
+  computed: {
+    direction() {
+      return this.location === 'ar' ? 'rtl' : 'ltr';
+    },
+  },
+  mounted() {
+    const topValue2 = (document.querySelector('.wrapper').offsetHeight - document.querySelector('.wrapper h1').offsetHeight) / 2;
+    document.querySelector('.wrapper h1').style.top = `${topValue2}px`;
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+      const topValue = (document.querySelector('.wrapper').offsetHeight - document.querySelector('.wrapper h1').offsetHeight) / 2;
+      document.querySelector('.wrapper h1').style.top = `${topValue}px`;
+    });
   },
 };
 </script>
@@ -166,7 +193,6 @@ input[type=checkbox] {
 }
 table {
   margin: auto;
-  /*text-align: center;*/
 }
 .table>:not(caption)>*>* {
   padding: 10px;
@@ -176,58 +202,8 @@ table {
 .table>:not(:first-child) {
   border: 1px solid white;
 }
-tbody:first-of-type tr td:first-child {
-  background-color: #fefe9a;
-}
 th {
   font-size: 20px;
-}
-td.table-0-1,
-td.table-0-2,
-td.table-1-0,
-td.table-1-1,
-td.table-1-2,
-td.table-2-0,
-td.table-2-1,
-td.table-2-2 {
-  background-color: #f4f269;
-}
-td.table-0-3,
-td.table-0-4,
-td.table-1-3,
-td.table-1-4,
-td.table-2-3,
-td.table-2-4,
-td.table-3-0,
-td.table-3-1,
-td.table-3-2,
-td.table-3-3,
-td.table-4-0,
-td.table-4-1,
-td.table-4-2 {
-  background-color: #dae85d;
-}
-td.table-4-3,
-td.table-3-4 {
-  background-color: #bfde52;
-}
-td.table-4-4 {
-  background-color: #a7d347;
-}
-td.table-0-5,
-td.table-1-5,
-td.table-2-5,
-td.table-3-5,
-td.table-4-5,
-td.table-5-0,
-td.table-5-1,
-td.table-5-2,
-td.table-5-3,
-td.table-5-4 {
-  background-color: #41ad1a;
-}
-td.table-5-5 {
-  background-color: #03665c;
 }
 td.table-5-5 tr:nth-child(1) {
   color: #fff;
@@ -237,5 +213,74 @@ td.table-5-5 tr:nth-child(2) {
 }
 td.table-5-5 tr:nth-child(3) {
   color: #10d3c1;
+}
+table table {
+  height: 72px;
+}
+.wrapper {
+  position: relative;
+}
+.wrapper h1 {
+  position: absolute;
+}
+#app[dir=ltr] .wrapper h1 {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+#app[dir=rtl] .wrapper h1 {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+#app[dir=ltr] .table-responsive-sm {
+  padding-left: 30px;
+}
+#app[dir=rtl] .table-responsive-sm {
+  padding-right: 44px;
+}
+@media screen and (max-width: 480px) {
+  .table>:not(caption)>*>*, th {
+    padding: 2px;
+    font-size: 9px;
+  }
+  #app[dir=rtl] .wrapper h1, h1 {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 600px) {
+  #app[dir=rtl] .table-responsive-sm {
+    padding-right: 33px;
+  }
+}
+@media (min-width: 480px) and (max-width: 600px) {
+  .table>:not(caption)>*>*, th {
+    padding: 5px;
+    font-size: 14px;
+  }
+  .wrapper h1 {
+    font-size: 22px;
+  }
+  #app[dir=ltr] .table-responsive-sm {
+    padding-left: 30px;
+  }
+}
+@media (min-width: 480px) and (max-width: 520px) {
+  #app[dir=ltr] .wrapper h1 {
+    font-size: 19px;
+  }
+}
+@media (min-width: 520px) and (max-width: 848px) {
+  #app[dir=ltr] .wrapper h1 {
+    font-size: 22px;
+  }
+}
+@media (min-width: 480px) and (max-width: 800px) {
+  #app[dir=rtl] .wrapper h1 {
+    font-size: 23px;
+  }
+}
+@media screen and (min-width: 600px) {
+  #app[dir=ltr] .table-responsive-sm {
+    padding-left: 40px;
+  }
 }
 </style>

@@ -37,6 +37,14 @@
         "N95": "1.6X",
         "N95,fit": "16X"
       }
+    },
+    "color": {
+      "Nothing": "fefe9a",
+      "Cloth": "f4f269",
+      "SM": "f4f269",
+      "SM,fit": "dae85d",
+      "N95": "dae85d",
+      "N95,fit": "41ad1a"
     }
   },
   {
@@ -69,6 +77,14 @@
         "N95": "2.8X",
         "N95,fit": "26.4X"
       }
+    },
+    "color": {
+      "Nothing": "f4f269",
+      "Cloth": "f4f269",
+      "SM": "f4f269",
+      "SM,fit": "dae85d",
+      "N95": "dae85d",
+      "N95,fit": "41ad1a"
     }
   },
   {
@@ -101,6 +117,14 @@
         "N95": "3.2X",
         "N95,fit": "33.6X"
       }
+    },
+    "color": {
+      "Nothing": "f4f269",
+      "Cloth": "f4f269",
+      "SM": "f4f269",
+      "SM,fit": "dae85d",
+      "N95": "dae85d",
+      "N95,fit": "41ad1a"
     }
   },
   {
@@ -133,6 +157,14 @@
         "N95": "8X",
         "N95,fit": "81.6X"
       }
+    },
+    "color": {
+      "Nothing": "dae85d",
+      "Cloth": "dae85d",
+      "SM": "dae85d",
+      "SM,fit": "dae85d",
+      "N95": "bfde52",
+      "N95,fit": "41ad1a"
     }
   },
   {
@@ -165,6 +197,14 @@
         "N95": "16.4X",
         "N95,fit": "163.2X"
       }
+    },
+    "color": {
+      "Nothing": "dae85d",
+      "Cloth": "dae85d",
+      "SM": "dae85d",
+      "SM,fit": "bfde52",
+      "N95": "bfde52",
+      "N95,fit": "41ad1a"
     }
   },
   {
@@ -197,6 +237,14 @@
         "N95": "163.2X",
         "N95,fit": "1,625X"
       }
+    },
+    "color": {
+      "Nothing": "41ad1a",
+      "Cloth": "41ad1a",
+      "SM": "41ad1a",
+      "SM,fit": "41ad1a",
+      "N95": "41ad1a",
+      "N95,fit": "03665c"
     }
   }
 ]
